@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Main-Class: it.seat.visualzoom.zoom.Zoom
+Class-Path: . lib/jmf.jar lib/gluegen-rt.jar lib/jogl.jar lib/pgmeteo.jar

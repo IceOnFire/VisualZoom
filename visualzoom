@@ -1,0 +1,13 @@
+#!/bin/bash
+
+; Cerca la JVM nel path
+JAVA=`which java`
+
+; Se non la trova, usa quella bundled
+if [ "$JAVA" = "" ]; then
+	JAVA="jre/bin/java"
+fi
+echo $JAVA
+
+; Esegue il programma
+$JAVA -Xms128m -Xmx1024m -Djava.library.path="lib" -jar visualzoom.jar

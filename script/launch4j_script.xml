@@ -1,0 +1,39 @@
+<launch4jConfig>
+	<dontWrapJar>true</dontWrapJar>
+	<headerType>gui</headerType>
+	<jar>visualzoom.jar</jar>
+	<outfile>../VisualZoom.exe</outfile>
+	<errTitle></errTitle>
+	<cmdLine></cmdLine>
+	<chdir>launch4j</chdir>
+	<customProcName>false</customProcName>
+	<priority>normal</priority>
+	<downloadUrl>http://java.com/download</downloadUrl>
+	<supportUrl></supportUrl>
+	<stayAlive>false</stayAlive>
+	<icon>../icons/visualzoom.ico</icon>
+
+	<jre>
+		<path>jre</path>
+		<minVersion>1.5.0</minVersion>
+		<maxVersion></maxVersion>
+		<dontUsePrivateJres>false</dontUsePrivateJres>
+		<initialHeapSize>128</initialHeapSize>
+		<maxHeapSize>1024</maxHeapSize>
+		<opt>-Djava.library.path="lib"</opt>
+		<opt>-Dsun.java2d.noddraw=true</opt>
+	</jre>
+
+	<versionInfo>
+		<fileVersion>2.1.0.0</fileVersion>
+		<txtFileVersion>2.1</txtFileVersion>
+		<fileDescription>VisualZoom</fileDescription>
+		<copyright>SEAT Pagine Gialle S.p.A.</copyright>
+		<productVersion>2.1.0.0</productVersion>
+		<txtProductVersion>2.1</txtProductVersion>
+		<productName>VisualZoom</productName>
+		<companyName>SEAT Pagine Gialle S.p.A.</companyName>
+		<internalName>VisualZoom</internalName>
+		<originalFilename>VisualZoom.exe</originalFilename>
+	</versionInfo>
+</launch4jConfig>

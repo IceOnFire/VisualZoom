@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="VisualZoom" default="run" basedir="output">
+	<property name="launch4j.dir" location="../launch4j" />
+	<property name="lib" value="../../lib" />
+	<propertyset id="eclipse_var">
+		<propertyref name="lib" />
+	</propertyset>
+
+	<taskdef name="launch4j" classname="net.sf.launch4j.ant.Launch4jTask" classpath="${launch4j.dir}/launch4j.jar;${launch4j.dir}/xstream.jar" />
+
+	<target name="init">
+		<property name="project_name" value="VisualZoom" />
+		<property name="destDir" value="../../bin" />
+		<property name="jar" value="visualzoom-chiaro.jar" />
+		<property name="obfjar" value="visualzoom.jar" />
+		<property name="renamelog" value="${project_name}_renamelog.xml" />
+		<property name="shrinklog" value="${project_name}_shrinklog.xml" />
+		<property name="mainclass" value="it.seat.visualzoom.zoom.Zoom" />
+		<mkdir dir="${destDir}" />
+	</target>
+
+	<target name="compile" depends="init">
+		<javac srcdir="../../../visualapi/src/it/seat/visual" destdir="${destDir}" />
+		<javac srcdir="../../../SwingCloser/src" destdir="${destDir}" />
+		<javac srcdir="../../src" destdir="${destDir}" />
+	</target>
+
+	<target name="jar" depends="compile">
+		<jar jarfile="${jar}" encoding="UTF-8" manifest="../manifest.mf" basedir="${destDir}" includes="it/**/*.class" />
+	</target>
+
+	<target depends="jar" name="yguard">
+		<taskdef name="yguard" classpath="../yguard.jar" classname="com.yworks.yguard.YGuardTask" />
+
+		<yguard>
+			<inoutpair in="${jar}" out="${obfjar}" />
+
+			<externalclasses>
+				<pathelement location="${lib}/jmf.jar" />
+				<pathelement location="${lib}/gluegen-rt.jar" />
+				<pathelement location="${lib}/jogl.jar" />
+				<pathelement location="${lib}/pgmeteo.jar" />
+			</externalclasses>
+
+			<rename replaceClassNameStrings="true" conservemanifest="true" mainclass="${mainclass}" logfile="${renamelog}">
+				<property name="error-checking" value="pedantic">
+				</property>
+				<keep>
+					<class fields="private" methods="private" classes="private">
+						<patternset>
+							<include name="it.seat.visualzoom.zoom.Zoom" />
+						</patternset>
+					</class>
+				</keep>
+			</rename>
+		</yguard>
+
+		<copy file="./${obfjar}" todir="../../" />
+	</target>
+
+	<target name="clean" depends="init">
+		<delete dir="${destDir}" includeEmptyDirs="true" />
+	</target>
+
+	<target name="launch4j">
+		<launch4j configFile="../launch4j_script.xml" />
+	</target>
+
+	<target name="run" depends="init,yguard,clean,launch4j" />
+</project>
